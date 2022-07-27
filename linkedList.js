@@ -1,23 +1,35 @@
-import Node from "./node"
+import Node from "./node";
 
+// 链表
 class LinkedList {
   constructor() {
-    this.count = 0
-    this.head = undefined
+    this.count = 0;
+    this.head = undefined;
   }
 
   push(element) {
-    const node = new Node(element)
+    const node = new Node(element);
     if (this.head == null) {
-      this.head = node
+      this.head = node;
     } else {
-      let current = this.head
+      let current = this.head;
       while (current.next != null) {
-        current = current.next
+        current = current.next;
       }
-      current.next = node
+      current.next = node;
     }
-    this.count++
+    this.count++;
+  }
+
+  getElementAt(index) {
+    if (index >= 0 && index < this.count) {
+      let node = this.head;
+      for (let i = 0; i < index; i++) {
+        node = node.next;
+      }
+      return node;
+    }
+    return undefined;
   }
 
   removeAt(index) {
@@ -26,11 +38,8 @@ class LinkedList {
       if (index === 0) {
         this.head = current.next;
       } else {
-        let previous;
-        for (let i = 0; i < index; i++) {
-          previous = current;
-          current = current.next;
-        }
+        const previous = this.getElementAt(index - 1);
+        current = previous.next;
         previous.next = current.next;
       }
       this.count--;
@@ -38,4 +47,6 @@ class LinkedList {
     }
     return undefined;
   }
+
+  insert(element, index) {}
 }
