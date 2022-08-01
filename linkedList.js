@@ -48,5 +48,50 @@ class LinkedList {
     return undefined;
   }
 
-  insert(element, index) {}
+  insert(element, index) {
+    if (index >= 0 && index <= this.count) {
+      const node = new Node(element);
+      if (index === 0) {
+        node.next = this.head;
+        this.head = node;
+      } else {
+        const previous = this.getElementAt(index - 1);
+        node.next = previous.next;
+        previous.next = node;
+      }
+      this.count++;
+      return true;
+    }
+    return false;
+  }
+
+  indexOf(element) {
+    let current = this.head;
+    for (let i = 0; i < this.count; i++) {
+      if (current.element === element) {
+        return i;
+      }
+      current = current.next;
+    }
+    return -1;
+  }
+
+  remove(element) {
+    const index = this.indexOf(element);
+    return this.removeAt(index);
+  }
+
+  size() {
+    return this.count;
+  }
+
+  isEmpty() {
+    return this.count === 0;
+  }
+
+  getHead() {
+    return this.head;
+  }
 }
+
+export default LinkedList;
